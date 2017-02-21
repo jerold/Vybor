@@ -1,0 +1,6 @@
+build/*
+tools/deploy.sh
+.dart_tool/*
+.packages
+.pub/
+pubspec.lock
