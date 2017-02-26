@@ -32,6 +32,7 @@
         </div>
     </nav>
 
+    <!-- Vybor hero -->
     <section class="hero">
         <div class="hero-body">
             <div class="container">
@@ -40,16 +41,18 @@
                 </div>
                 <h3 class="title is-3">The Russian word for <strong>choice</strong>.</h3>
                 <h4 class="subtitle is-4">
-                    To make one, find or create a group, add your options, and press <strong>Pick</strong>.
+                    To make one, find or create a group, add your options, and press <strong>pick</strong>.
                 </h4>
             </div>
         </div>
     </section>
 
+    <!-- Group Panel -->
     <div class="container">
-
         <div class="card" *ngIf="groupCardView != group_card_view_hidden">
             <div class="card-content">
+
+                <!-- Group Name & recent pick info -->
                 <div class="content">
                     <div class="heading">
                         <h3 class="title">
@@ -65,6 +68,7 @@
                     </div>
                 </div>
 
+                <!-- Options, Members, History tabs -->
                 <div class="tabs is-centered">
                     <ul>
                         <li [class.is-active]="groupCardView == group_card_view_options" (click)="groupCardView = group_card_view_options"><a>Options ({{groupOptions.length}})</a></li>
@@ -74,6 +78,8 @@
                 </div>
 
                 <aside class="menu">
+
+                    <!-- Options view -->
                     <ul class="menu-list" *ngIf="groupCardView == group_card_view_options">
                         <li *ngFor="let uid of visibleOptions(groupOptions)">
                             <a (click)="optionIsBlocked(uid) ? actions.enableOption(uid) : actions.disableOption(uid)">
@@ -82,6 +88,8 @@
                             </a>
                         </li>
                     </ul>
+
+                    <!-- Members view -->
                     <ul class="menu-list" *ngIf="groupCardView == group_card_view_members">
                         <li *ngFor="let uid of groupUsers">
                             <a (click)="userIdBlocked(uid) ? actions.enableUser(uid) : actions.disableUser(uid)">
@@ -90,6 +98,8 @@
                             </a>
                         </li>
                     </ul>
+
+                    <!-- History view -->
                     <ul class="menu-list" *ngIf="groupCardView == group_card_view_history">
                         <li *ngFor="let uid of groupPicks">
                             <a>
@@ -105,6 +115,8 @@
                     </ul>
                 </aside>
             </div>
+
+            <!-- Group related user options -->
             <footer class="card-footer">
                 <a class="card-footer-item" [class.is-disabled]="!userSelected" (click)="modalView=modal_view_create_option">Add Option</a>
                 <a class="card-footer-item" (click)="actions.createPick()">Pick</a>
@@ -112,8 +124,11 @@
         </div>
     </div>
 
+    <!-- Group Search area -->
     <section class="section">
         <div class="container">
+
+            <!-- Create a new Group ui -->
             <div class="control is-grouped">
                 <p class="control is-expanded">
                     <input #groupNameInput class="input" type="text" placeholder="Enter a group name...">
@@ -126,6 +141,7 @@
                 </p>
             </div>
 
+            <!-- Search results -->
             <aside class="menu">
                 <ul class="menu-list">
                     <li *ngFor="let uid of visibleGroups(groups.keys)">
@@ -139,6 +155,7 @@
         </div>
     </section>
 
+    <!-- Footer licenses and shout-outs -->
     <footer class="footer">
         <div class="container">
             <div class="content has-text-centered">
@@ -157,6 +174,7 @@
         </div>
     </footer>
 
+    <!-- Content management modal -->
     <div class="modal" [class.is-active]="modalView == modal_view_manage_content">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -203,7 +221,7 @@
         <button class="modal-close" (click)="modalView = modal_view_hidden"></button>
     </div>
 
-
+    <!-- Create option modal -->
     <div class="modal" [class.is-active]="modalView == modal_view_create_option">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -222,6 +240,7 @@
         <button class="modal-close" (click)="modalView = modal_view_hidden"></button>
     </div>
 
+    <!-- View the new pick modal -->
     <div class="modal" [class.is-active]="modalView == modal_view_show_pick">
         <div class="modal-background"></div>
         <div class="modal-content">

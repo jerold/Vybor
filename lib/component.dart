@@ -9,20 +9,10 @@ import 'package:vybor/client.dart';
 import 'package:vybor/firebase_client.dart';
 import 'package:vybor/model.dart';
 
-
-enum Consideration {
-  eligible,
-  onCooldown,
-  userDisabled,
-  pickDisabled,
-}
-
-
 @Component(
   selector: 'vybor',
   styleUrls: const ['package:vybor/bulma.css'],
   templateUrl: 'package:vybor/template.html',
-  // templateUrl: 'package:vybor/temp_template.html',
 )
 class VyborComponent {
   Actions actions;
