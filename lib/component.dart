@@ -147,6 +147,7 @@ class VyborComponent {
 
   Future _deleteOption(String uid) async => _client.deleteOption(uid);
 
+  /// Pick randomly from the list of enabled options.
   Future _createPick(_) async {
     if (theGroup == null) return;
     Set<String> optionUids = new Set<String>.from(theGroup.options);
@@ -203,19 +204,6 @@ class VyborComponent {
       groupCardView = group_card_view_hidden;
     }
   }
-
-  // void updateGroupSearchResults(String text) {
-  //   groupSearchResults.clear();
-  //   if (text.length != 0) {
-  //     groupSearchResults.addAll(groups.keys);
-  //     return;
-  //   }
-  //   groups.forEach((uid, groupData) {
-  //     if (groupData.name.indexOf(text) != -1) {
-  //       groupSearchResults.add(uid);
-  //     }
-  //   });
-  // }
 
   String fmtDate(String date) => date != null ? new DateFormat.yMEd().add_jms().format(DateTime.parse(date)) : '';
 
