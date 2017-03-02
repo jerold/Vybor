@@ -35,6 +35,7 @@ class VyborComponent {
   final String modal_view_show_pick = "ModalView.showPick";
 
   bool showMobileMenu = false;
+  bool showEditGroupInput = false;
 
   // Content variables
 
@@ -97,6 +98,7 @@ class VyborComponent {
       ..leaveGroup.listen(_leaveGroup)
       ..createGroup.listen(_createGroup)
       ..deleteGroup.listen(_deleteGroup)
+      ..updateDescription.listen(_updateDescription)
       ..disableOption.listen(_disableOption)
       ..enableOption.listen(_enableOption)
       ..disableUser.listen(_disableUser)
@@ -132,6 +134,8 @@ class VyborComponent {
   }
 
   Future _deleteGroup(String uid) async => _client.deleteGroup(uid);
+
+  Future _updateDescription(String text) async => _client.updateDescription(text);
 
   Future _disableOption(String uid) async => _client.disableOption(uid);
 

@@ -26,6 +26,7 @@ const String NAME_KEY = 'name';
 const String CREATOR_KEY = 'creator';
 const String ACTIVE_KEY = 'active';
 const String DELETED_KEY = 'deleted';
+const String DESCRIPTION_KEY = 'description';
 const String ACTIVE_TIMESTAMP_KEY = 'active-timestamp';
 const String PICK_TIMESTAMP_KEY = 'pick-timestamp';
 
@@ -187,7 +188,8 @@ class FirebaseClient implements Client {
       builder
         ..name = data[NAME_KEY]
         ..creator = data[CREATOR_KEY]
-        ..deleted = data[DELETED_KEY] ?? false;
+        ..deleted = data[DELETED_KEY] ?? false
+        ..description = data[DESCRIPTION_KEY] ?? '';
       if (data[OPTIONS_KEY] != null) builder.options.addAll(data[OPTIONS_KEY].keys);
       if (data[BLOCKED_OPTIONS_KEY] != null) builder.blockedOptions.addAll(data[BLOCKED_OPTIONS_KEY].keys);
       if (data[USERS_KEY] != null) builder.users.addAll(data[USERS_KEY].keys);
@@ -359,6 +361,11 @@ class FirebaseClient implements Client {
   Future deleteGroup(String uid) async {
     if (!groups.containsKey(uid) || _theUserUid != groups[uid].creator) return;
     groupRef(uid, DELETED_KEY).set(true);
+  }
+
+  Future updateDescription(String text) async {
+    if (theGroup == null || _theUserUid != theGroup.creator) return;
+    groupRef(_theGroupUid, DESCRIPTION_KEY).set(text);
   }
 
   Future disableOption(String uid) async {

@@ -38,23 +38,25 @@ abstract class Client {
 
   Future signOut();
 
-  Future joinGroup(uid);
+  Future joinGroup(String uid);
 
   Future leaveGroup();
 
-  Future createGroup(name);
+  Future createGroup(String name);
 
-  Future deleteGroup(uid);
+  Future deleteGroup(String uid);
 
-  Future disableOption(uid);
+  Future updateDescription(String text);
 
-  Future enableOption(uid);
+  Future disableOption(String uid);
 
-  Future disableUser(uid);
+  Future enableOption(String uid);
 
-  Future enableUser(uid);
+  Future disableUser(String uid);
 
-  Future createOption(name);
+  Future enableUser(String uid);
+
+  Future createOption(String name);
 
   Future deleteOption(String uid);
 

@@ -17,6 +17,8 @@ abstract class GroupData implements Built<GroupData, GroupDataBuilder>, DataMode
 
   bool get deleted;
 
+  String get description;
+
   BuiltList<String> get options;
 
 	BuiltList<String> get blockedOptions;

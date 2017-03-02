@@ -15,6 +15,8 @@ class _$GroupData extends GroupData {
   @override
   final bool deleted;
   @override
+  final String description;
+  @override
   final BuiltList<String> options;
   @override
   final BuiltList<String> blockedOptions;
@@ -32,6 +34,7 @@ class _$GroupData extends GroupData {
       {this.name,
       this.creator,
       this.deleted,
+      this.description,
       this.options,
       this.blockedOptions,
       this.users,
@@ -41,6 +44,7 @@ class _$GroupData extends GroupData {
     if (name == null) throw new ArgumentError.notNull('name');
     if (creator == null) throw new ArgumentError.notNull('creator');
     if (deleted == null) throw new ArgumentError.notNull('deleted');
+    if (description == null) throw new ArgumentError.notNull('description');
     if (options == null) throw new ArgumentError.notNull('options');
     if (blockedOptions == null)
       throw new ArgumentError.notNull('blockedOptions');
@@ -62,6 +66,7 @@ class _$GroupData extends GroupData {
     return name == other.name &&
         creator == other.creator &&
         deleted == other.deleted &&
+        description == other.description &&
         options == other.options &&
         blockedOptions == other.blockedOptions &&
         users == other.users &&
@@ -76,8 +81,10 @@ class _$GroupData extends GroupData {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, name.hashCode), creator.hashCode),
-                            deleted.hashCode),
+                        $jc(
+                            $jc($jc($jc(0, name.hashCode), creator.hashCode),
+                                deleted.hashCode),
+                            description.hashCode),
                         options.hashCode),
                     blockedOptions.hashCode),
                 users.hashCode),
@@ -91,6 +98,7 @@ class _$GroupData extends GroupData {
         'name=${name.toString()},\n'
         'creator=${creator.toString()},\n'
         'deleted=${deleted.toString()},\n'
+        'description=${description.toString()},\n'
         'options=${options.toString()},\n'
         'blockedOptions=${blockedOptions.toString()},\n'
         'users=${users.toString()},\n'
@@ -114,6 +122,10 @@ class GroupDataBuilder implements Builder<GroupData, GroupDataBuilder> {
   bool _deleted;
   bool get deleted => _$this._deleted;
   set deleted(bool deleted) => _$this._deleted = deleted;
+
+  String _description;
+  String get description => _$this._description;
+  set description(String description) => _$this._description = description;
 
   ListBuilder<String> _options;
   ListBuilder<String> get options =>
@@ -147,6 +159,7 @@ class GroupDataBuilder implements Builder<GroupData, GroupDataBuilder> {
       _name = _$v.name;
       _creator = _$v.creator;
       _deleted = _$v.deleted;
+      _description = _$v.description;
       _options = _$v.options?.toBuilder();
       _blockedOptions = _$v.blockedOptions?.toBuilder();
       _users = _$v.users?.toBuilder();
@@ -174,6 +187,7 @@ class GroupDataBuilder implements Builder<GroupData, GroupDataBuilder> {
             name: name,
             creator: creator,
             deleted: deleted,
+            description: description,
             options: options?.build(),
             blockedOptions: blockedOptions?.build(),
             users: users?.build(),

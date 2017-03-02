@@ -19,6 +19,9 @@ class Actions {
 	/// Adds a Pick to the UserData in the list associated to their current group.
 	final Action<String> deleteGroup = new Action<String>();
 
+  /// Change the description of the current group.
+  final Action<String> updateDescription = new Action<String>();
+
 	/// Prevents a specific user's choice from being taken into consideration
 	/// during pick within the current group.
 	final Action<String> disableOption = new Action<String>();
@@ -43,11 +46,4 @@ class Actions {
 
   /// Select one of the picks from one of the users in a group.
 	final Action createPick = new Action();
-}
-
-class NameChangePayload {
-  final String oldName;
-  final String newName;
-
-  NameChangePayload(this.oldName, this.newName);
 }

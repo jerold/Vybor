@@ -55,7 +55,7 @@
                 <!-- Group Name & recent pick info -->
                 <div class="content">
                     <div class="heading">
-                        <h3 class="title">
+                        <h3 class="title is-3">
                             {{theGroup?.name}}
                             <span class="icon" *ngFor="let uid of groupUsers">
                                 <i class="fa fa-child" *ngIf="!(user(uid)?.active ?? false)" title="{{user(uid)?.name}}"></i>
@@ -66,6 +66,36 @@
                             Most recent pick: <a title="Picked by {{user(pick(lastPick)?.creator)?.name}}">{{option(lastPickedOption)?.name}}</a> ({{fmtAgo(pick(lastPick)?.pickTimestamp)}})
                         </h5>
                     </div>
+
+                    <!-- Edit Description -->
+                    <div class="control is-grouped" *ngIf="showEditGroupInput">
+                        <p class="control is-expanded">
+                            <input #groupDescriptionInput class="input" type="text" placeholder="Description text...">
+                        </p>
+                        <p class="control">
+                            <a class="button is-white" (click)="actions.updateDescription(groupDescriptionInput.value); groupDescriptionInput.value = ''; showEditGroupInput = false">
+                                <span class="icon is-small">
+                                    <i class="fa fa-check" title="Confirm" ></i>
+                                </span>
+                            </a>
+                        </p>
+                        <p class="control">
+                            <a class="button is-white" (click)="groupDescriptionInput.value = ''; showEditGroupInput = false">
+                                <span class="icon is-small">
+                                    <i class="fa fa-times" title="Cancel" ></i>
+                                </span>
+                            </a>
+                        </p>
+                    </div>
+                    <div *ngIf="!showEditGroupInput && user(theGroup?.creator) == theUser" >
+                        <p class="subtitle is-5" style="color:darkgrey;">{{theGroup?.description}}</p>
+                        <a class="button is-white" (click)="showEditGroupInput = true">
+                            <span class="icon is-small">
+                                <i class="fa fa-pencil" title="Edit description" ></i>
+                            </span>
+                        </a>
+                    </div>
+
                 </div>
 
                 <!-- Options, Members, History tabs -->
