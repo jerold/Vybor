@@ -67,13 +67,13 @@ class VyborComponent {
 
   bool optionCreatedByTheUser(String uid) => userSelected ? theUser.options.contains(uid) : false;
 
-  List<String> visibleGroups(Iterable<String> uids) => new List<String>.from(uids.where((uid) {
-    return !(group(uid)?.deleted ?? true);
-  }));
+  bool groupIsDeleted(String uid) => group(uid)?.deleted ?? true;
+  bool groupIsVisible(String uid) => !groupIsDeleted(uid);
+  List<String> visibleGroups(Iterable<String> uids) => new List<String>.from(uids.where(groupIsVisible));
 
-  List<String> visibleOptions(Iterable<String> uids) => new List<String>.from(uids.where((uid) {
-    return !(option(uid)?.deleted ?? true);
-  }));
+  bool optionIsDeleted(String uid) => option(uid)?.deleted ?? true;
+  bool optionIsVisible(String uid) => !optionIsDeleted(uid);
+  List<String> visibleOptions(Iterable<String> uids) => new List<String>.from(uids.where(optionIsVisible));
 
   /// uids of group options.
   List<String> get groupOptions => groupSelected ? theGroup.options.asList() : new List<String>();
@@ -84,6 +84,8 @@ class VyborComponent {
   List<String> get groupUsers => groupSelected ? theGroup.users.asList() : new List<String>();
   Set<String> get blockedUsers => groupSelected ? new Set<String>.from(theGroup.blockedUsers) : new Set<String>();
   bool userIdBlocked(String uid) => blockedUsers.contains(uid);
+
+  bool optionCreatorIsBlocked(String uid) => userIdBlocked(option(uid).creator);
 
   /// uids of group picks.
   List<String> get groupPicks => groupSelected ? theGroup.picks.asList().reversed : new List<String>();
@@ -154,13 +156,14 @@ class VyborComponent {
   /// Pick randomly from the list of enabled options.
   Future _createPick(_) async {
     if (theGroup == null) return;
-    Set<String> optionUids = new Set<String>.from(theGroup.options);
-    optionUids = optionUids.difference(theGroup.blockedOptions.toSet());
-    List<String> eligibleOptionUids = new List<String>.from(optionUids.where((String optionUid) {
-      return !theGroup.blockedUsers.contains(options[optionUid].creator);
+    List<String> optionUids = new List<String>.from(theGroup.options.where((optionUid) {
+      if (optionIsDeleted(optionUid)) return false;
+      if (optionIsBlocked(optionUid)) return false;
+      if (optionCreatorIsBlocked(optionUid)) return false;
+      return true;
     }));
-    if (eligibleOptionUids.length == 0) return;
-    expectedPick = await _client.createPick(eligibleOptionUids[new Random().nextInt(eligibleOptionUids.length)]);
+    if (optionUids.length == 0) return;
+    expectedPick = await _client.createPick(optionUids[new Random().nextInt(optionUids.length)]);
   }
 
    _groupDidChange(String uid) {

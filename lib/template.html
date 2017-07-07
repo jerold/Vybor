@@ -113,8 +113,10 @@
                     <ul class="menu-list" *ngIf="groupCardView == group_card_view_options">
                         <li *ngFor="let uid of visibleOptions(groupOptions)">
                             <a (click)="optionIsBlocked(uid) ? actions.enableOption(uid) : actions.disableOption(uid)">
+                                <span *ngIf="optionCreatedByTheUser(uid)" title="You added this!">*</span>
                                 <strong>{{option(uid)?.name}}</strong>
-                                <span *ngIf="optionIsBlocked(uid)">(Disabled)</span>
+                                <span *ngIf="optionIsBlocked(uid)">(Blocked)</span>
+                                <span *ngIf="optionCreatorIsBlocked(uid)">(Blocked Creator)</span>
                             </a>
                         </li>
                     </ul>
@@ -124,7 +126,7 @@
                         <li *ngFor="let uid of groupUsers">
                             <a (click)="userIdBlocked(uid) ? actions.enableUser(uid) : actions.disableUser(uid)">
                                 <strong>{{user(uid)?.name}}</strong>
-                                <span *ngIf="userIdBlocked(uid)">(Disabled)</span>
+                                <span *ngIf="userIdBlocked(uid)">(Blocked)</span>
                             </a>
                         </li>
                     </ul>

@@ -149,10 +149,10 @@ class FirebaseClient implements Client {
     else if (window.localStorage.containsKey(GROUP_KEY)) _selectGroup(window.localStorage[GROUP_KEY]);
 
     firebase.initializeApp(
-      apiKey: "--apiKey--",
-      authDomain: "--authDomain--",
-      databaseURL: "--databaseURL--",
-      storageBucket: "--storageBucket--",
+      apiKey: "AIzaSyDkmbRvyvMdRP78cG_KO1rqx32gU_5jAbU",
+      authDomain: "vybor-3a9d5.firebaseapp.com",
+      databaseURL: "https://vybor-3a9d5.firebaseio.com",
+      storageBucket: "vybor-3a9d5.appspot.com",
     );
 
     _fbGoogleAuthProvider = new firebase.GoogleAuthProvider();
