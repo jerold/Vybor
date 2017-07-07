@@ -1,0 +1,26 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "package:vybor/model.dart",
+        "5": false
+      }
+    ],
+    "6": "client.dart"
+  },
+  "type": {
+    "Client": {
+      "class": "Identifier",
+      "name": "Client",
+      "moduleUrl": "asset:vybor/lib/client.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

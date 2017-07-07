@@ -1,0 +1,22 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "package:w_flux/w_flux.dart",
+        "5": false
+      }
+    ],
+    "6": "actions.dart"
+  },
+  "type": {
+    "Actions": {
+      "class": "Identifier",
+      "name": "Actions",
+      "moduleUrl": "asset:vybor/lib/actions.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

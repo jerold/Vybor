@@ -1,0 +1,110 @@
+{
+  "ngDeps": {
+    "1": "vybor.model",
+    "3": [
+      {
+        "1": "package:built_collection/built_collection.dart",
+        "5": false
+      },
+      {
+        "1": "package:built_value/built_value.dart",
+        "5": false
+      }
+    ],
+    "6": "model.dart"
+  },
+  "type": {
+    "_$GroupData": {
+      "class": "Identifier",
+      "name": "_$GroupData",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "GroupDataBuilder": {
+      "class": "Identifier",
+      "name": "GroupDataBuilder",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_$OptionData": {
+      "class": "Identifier",
+      "name": "_$OptionData",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OptionDataBuilder": {
+      "class": "Identifier",
+      "name": "OptionDataBuilder",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_$PickData": {
+      "class": "Identifier",
+      "name": "_$PickData",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PickDataBuilder": {
+      "class": "Identifier",
+      "name": "PickDataBuilder",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "_$UserData": {
+      "class": "Identifier",
+      "name": "_$UserData",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "UserDataBuilder": {
+      "class": "Identifier",
+      "name": "UserDataBuilder",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DataModel": {
+      "class": "Identifier",
+      "name": "DataModel",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "GroupData": {
+      "class": "Identifier",
+      "name": "GroupData",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OptionData": {
+      "class": "Identifier",
+      "name": "OptionData",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PickData": {
+      "class": "Identifier",
+      "name": "PickData",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    },
+    "UserData": {
+      "class": "Identifier",
+      "name": "UserData",
+      "moduleUrl": "asset:vybor/lib/model.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

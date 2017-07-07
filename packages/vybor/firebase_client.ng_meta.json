@@ -1,0 +1,171 @@
+{
+  "ngDeps": {
+    "1": "",
+    "3": [
+      {
+        "1": "dart:async",
+        "5": false
+      },
+      {
+        "1": "dart:html",
+        "2": [
+          "window"
+        ],
+        "5": false
+      },
+      {
+        "1": "package:firebase/firebase.dart",
+        "4": "firebase",
+        "5": false
+      },
+      {
+        "1": "package:vybor/client.dart",
+        "5": false
+      },
+      {
+        "1": "package:vybor/model.dart",
+        "5": false
+      }
+    ],
+    "6": "firebase_client.dart",
+    "7": [
+      {
+        "1": "package:vybor/client.template.dart",
+        "4": "i0"
+      },
+      {
+        "1": "package:vybor/model.template.dart",
+        "4": "i1"
+      }
+    ]
+  },
+  "type": {
+    "GROUP_KEY": {
+      "class": "Identifier",
+      "name": "GROUP_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "GROUPS_KEY": {
+      "class": "Identifier",
+      "name": "GROUPS_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OPTION_KEY": {
+      "class": "Identifier",
+      "name": "OPTION_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "OPTIONS_KEY": {
+      "class": "Identifier",
+      "name": "OPTIONS_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BLOCKED_OPTIONS_KEY": {
+      "class": "Identifier",
+      "name": "BLOCKED_OPTIONS_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "USER_KEY": {
+      "class": "Identifier",
+      "name": "USER_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "USERS_KEY": {
+      "class": "Identifier",
+      "name": "USERS_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "BLOCKED_USERS_KEY": {
+      "class": "Identifier",
+      "name": "BLOCKED_USERS_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PICK_KEY": {
+      "class": "Identifier",
+      "name": "PICK_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PICKS_KEY": {
+      "class": "Identifier",
+      "name": "PICKS_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "NAME_KEY": {
+      "class": "Identifier",
+      "name": "NAME_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "CREATOR_KEY": {
+      "class": "Identifier",
+      "name": "CREATOR_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ACTIVE_KEY": {
+      "class": "Identifier",
+      "name": "ACTIVE_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DELETED_KEY": {
+      "class": "Identifier",
+      "name": "DELETED_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "DESCRIPTION_KEY": {
+      "class": "Identifier",
+      "name": "DESCRIPTION_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "ACTIVE_TIMESTAMP_KEY": {
+      "class": "Identifier",
+      "name": "ACTIVE_TIMESTAMP_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "PICK_TIMESTAMP_KEY": {
+      "class": "Identifier",
+      "name": "PICK_TIMESTAMP_KEY",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    },
+    "FirebaseClient": {
+      "class": "Identifier",
+      "name": "FirebaseClient",
+      "moduleUrl": "asset:vybor/lib/firebase_client.dart",
+      "prefix": null,
+      "value": null
+    }
+  },
+  "alias": {}
+}

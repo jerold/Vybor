@@ -1,0 +1,292 @@
+<div roll="main">
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="nav-item" *ngIf="userSelected">
+                Signed in as {{theUser?.name}}
+            </a>
+            <a class="nav-item" *ngIf="!userSelected">
+                Sign in to add your own options
+            </a>
+        </div>
+
+        <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+        <span class="nav-toggle" [class.is-active]="showMobileMenu" (click)="showMobileMenu = !showMobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+
+        <!-- This "nav-menu" is hidden on mobile -->
+        <div class="nav-right nav-menu" [class.is-active]="showMobileMenu">
+            <a class="nav-item" *ngIf="userSelected">
+                <a class="button is-primary is-outlined" (click)="modalView = modal_view_manage_content">
+                    Manage your content
+                </a>
+                <a class="button is-danger is-outlined" (click)="actions.signOut()">
+                    <span>Sign out</span>
+                </a>
+            </a>
+            <a class="nav-item" *ngIf="!userSelected">
+                <button class="button is-primary" (click)="actions.signIn()">Sign in</button>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Vybor hero -->
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <div class="heading">
+                    <h1 class="title is-1"><a>Выбор</a> / <a>Vybor</a></h1>
+                </div>
+                <h3 class="title is-3">The Russian word for <strong>choice</strong>.</h3>
+                <h4 class="subtitle is-4">
+                    To make one, find or create a group, add your options, and press <strong>pick</strong>.
+                </h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Group Panel -->
+    <div class="container">
+        <div class="card" *ngIf="groupCardView != group_card_view_hidden">
+            <div class="card-content">
+
+                <!-- Group Name & recent pick info -->
+                <div class="content">
+                    <div class="heading">
+                        <h3 class="title is-3">
+                            {{theGroup?.name}}
+                            <span class="icon" *ngFor="let uid of groupUsers">
+                                <i class="fa fa-child" *ngIf="!(user(uid)?.active ?? false)" title="{{user(uid)?.name}}"></i>
+                                <a *ngIf="user(uid)?.active ?? false"><i class="fa fa-child" title="{{user(uid)?.name}} (Online)"></i></a>
+                            </span>
+                        </h3>
+                        <h5 class="menu-label" *ngIf="lastPick != null">
+                            Most recent pick: <a title="Picked by {{user(pick(lastPick)?.creator)?.name}}">{{option(lastPickedOption)?.name}}</a> ({{fmtAgo(pick(lastPick)?.pickTimestamp)}})
+                        </h5>
+                    </div>
+
+                    <!-- Edit Description -->
+                    <div class="control is-grouped" *ngIf="showEditGroupInput">
+                        <p class="control is-expanded">
+                            <input #groupDescriptionInput class="input" type="text" placeholder="Description text...">
+                        </p>
+                        <p class="control">
+                            <a class="button is-white" (click)="actions.updateDescription(groupDescriptionInput.value); groupDescriptionInput.value = ''; showEditGroupInput = false">
+                                <span class="icon is-small">
+                                    <i class="fa fa-check" title="Confirm" ></i>
+                                </span>
+                            </a>
+                        </p>
+                        <p class="control">
+                            <a class="button is-white" (click)="groupDescriptionInput.value = ''; showEditGroupInput = false">
+                                <span class="icon is-small">
+                                    <i class="fa fa-times" title="Cancel" ></i>
+                                </span>
+                            </a>
+                        </p>
+                    </div>
+                    <div *ngIf="!showEditGroupInput && user(theGroup?.creator) == theUser" >
+                        <p class="subtitle is-5" style="color:darkgrey;">{{theGroup?.description}}</p>
+                        <a class="button is-white" (click)="showEditGroupInput = true">
+                            <span class="icon is-small">
+                                <i class="fa fa-pencil" title="Edit description" ></i>
+                            </span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Options, Members, History tabs -->
+                <div class="tabs is-centered">
+                    <ul>
+                        <li [class.is-active]="groupCardView == group_card_view_options" (click)="groupCardView = group_card_view_options"><a>Options ({{groupOptions.length}})</a></li>
+                        <li [class.is-active]="groupCardView == group_card_view_members" (click)="groupCardView = group_card_view_members"><a>Members ({{groupUsers.length}})</a></li>
+                        <li [class.is-active]="groupCardView == group_card_view_history" (click)="groupCardView = group_card_view_history"><a>History ({{groupPicks.length}})</a></li>
+                    </ul>
+                </div>
+
+                <aside class="menu">
+
+                    <!-- Options view -->
+                    <ul class="menu-list" *ngIf="groupCardView == group_card_view_options">
+                        <li *ngFor="let uid of visibleOptions(groupOptions)">
+                            <a (click)="optionIsBlocked(uid) ? actions.enableOption(uid) : actions.disableOption(uid)">
+                                <span *ngIf="optionCreatedByTheUser(uid)" title="You added this!">*</span>
+                                <strong>{{option(uid)?.name}}</strong>
+                                <span *ngIf="optionIsBlocked(uid)">(Blocked)</span>
+                                <span *ngIf="optionCreatorIsBlocked(uid)">(Blocked Creator)</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Members view -->
+                    <ul class="menu-list" *ngIf="groupCardView == group_card_view_members">
+                        <li *ngFor="let uid of groupUsers">
+                            <a (click)="userIdBlocked(uid) ? actions.enableUser(uid) : actions.disableUser(uid)">
+                                <strong>{{user(uid)?.name}}</strong>
+                                <span *ngIf="userIdBlocked(uid)">(Blocked)</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- History view -->
+                    <ul class="menu-list" *ngIf="groupCardView == group_card_view_history">
+                        <li *ngFor="let uid of groupPicks">
+                            <a>
+                                <h4>
+                                    <strong>{{option(pick(uid)?.option)?.name}}</strong> ({{fmtAgo(pick(uid)?.pickTimestamp)}})
+                                </h4>
+                                <ul>
+                                    <li>Option added by <strong>{{user(option(pick(uid)?.option)?.creator)?.name}}</strong></li>
+                                    <li>Picked by <strong>{{user(pick(uid)?.creator)?.name}}</strong></li>
+                                </ul>
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+
+            <!-- Group related user options -->
+            <footer class="card-footer">
+                <a class="card-footer-item" [class.is-disabled]="!userSelected" (click)="modalView=modal_view_create_option">Add Option</a>
+                <a class="card-footer-item" (click)="actions.createPick()">Pick</a>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Group Search area -->
+    <section class="section">
+        <div class="container">
+
+            <!-- Create a new Group ui -->
+            <div class="control is-grouped">
+                <p class="control is-expanded">
+                    <input #groupNameInput class="input" type="text" placeholder="Enter a group name...">
+                </p>
+                <p class="control">
+                    <button class="button is-primary is-outlined is-fullwidth"
+                            (click)="actions.createGroup(groupNameInput.value); groupNameInput.value=''">
+                        Create Group
+                    </button>
+                </p>
+            </div>
+
+            <!-- Search results -->
+            <aside class="menu">
+                <ul class="menu-list">
+                    <li *ngFor="let uid of visibleGroups(groups.keys)">
+                        <a title="Join group"
+                                (click)="actions.joinGroup(uid)">
+                            {{group(uid).name}}
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Footer licenses and shout-outs -->
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Vybor</strong> by <a href="http://github.com/jerold">Jerold Albertson</a>, inpired by <a href="http://github.com/dominicfrost">Dominic Frost's</a> <strong>Lunch Picker</strong>.
+                    Styled with <a href="http://bulma.io/">Bulma</a>.
+                </p>
+                <p>
+                    The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                    The website content is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>.
+                </p>
+                <a class="icon" href="https://github.com/jerold/Vybor">
+                    <i class="fa fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Content management modal -->
+    <div class="modal" [class.is-active]="modalView == modal_view_manage_content">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box" *ngIf="!userSelected">
+                Log in to manage your groups and options.
+            </div>
+            <div class="box" *ngIf="userSelected">
+                <h2 class="title">Manage your groups.</h2>
+                <div class="block" *ngFor="let uid of visibleGroups(theUser?.groups)">
+                    <a class="button is-danger is-outlined"
+                            title="Delete group"
+                            (click)="actions.deleteGroup(uid)">
+                        Delete
+                    </a>
+                    <a class="button is-white"
+                            title="{{group(uid)?.options.length}} options, {{group(uid)?.users.length}} members, {{group(uid)?.picks.length}} picks"
+                            (click)="actions.joinGroup(uid); modalView = modal_view_hidden">
+                        {{group(uid)?.name}}
+                    </a>
+                </div>
+                <br>
+                <h2 class="title">Manage your options.</h2>
+                <div class="block" *ngFor="let uid of visibleOptions(theUser?.options)">
+                    <a class="button is-danger is-outlined"
+                            title="Delete option"
+                            (click)="actions.deleteOption(uid)">
+                        Delete
+                    </a>
+                    <a class="button is-white"
+                            title="Group: {{group(option(uid)?.group)?.name}}"
+                            (click)="actions.joinGroup(option(uid)?.group); modalView = modal_view_hidden">
+                        {{option(uid)?.name}}
+                    </a>
+                </div>
+                <br>
+                <label class="label">
+                    <span class="icon is-small">
+                        <i class="fa fa-info-circle"></i>
+                    </span>
+                    <p class="menu-label">Click on the name of a group or option to see it in context.</p>
+                </label>
+            </div>
+        </div>
+        <button class="modal-close" (click)="modalView = modal_view_hidden"></button>
+    </div>
+
+    <!-- Create option modal -->
+    <div class="modal" [class.is-active]="modalView == modal_view_create_option">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <label class="label">Create an option</label>
+                <div class="control is-grouped">
+                    <p class="control is-expanded">
+                        <input #optionNameInput class="input" type="text" placeholder="Option name...">
+                    </p>
+                    <p class="control">
+                        <button class="button is-primary" (click)="actions.createOption(optionNameInput.value); optionNameInput.value=''; modalView = modal_view_hidden">Submit</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close" (click)="modalView = modal_view_hidden"></button>
+    </div>
+
+    <!-- View the new pick modal -->
+    <div class="modal" [class.is-active]="modalView == modal_view_show_pick">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <div class="container">
+                    <h1 class="title">
+                        {{theOption?.name}}
+                    </h1>
+                    <h2 class="subtitle">
+                        Option by <strong>{{user(theOption?.creator)?.name}}</strong>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close" (click)="modalView = modal_view_hidden"></button>
+    </div>
+</div>
