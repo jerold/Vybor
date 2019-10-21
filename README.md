@@ -24,3 +24,10 @@ Note: You will need to drop in Firebase details in the firebase_client.dart file
 pub get
 pub serve
 ```
+
+# Running the app with Docker
+
+```bash
+docker build -t vybor .
+docker run -p 8080:8080 vybor
+```
